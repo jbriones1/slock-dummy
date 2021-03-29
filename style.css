@@ -1,0 +1,65 @@
+body {
+	background-color: white;
+	font-family: proxima nova;
+	font-size: 32px;
+	font-weight: 600;
+}
+
+h1,
+h2,
+p {
+	margin: 10px 10px 10px 30px;
+}
+
+.myButton {
+	width: 150px;
+	background-color: #55A3AB;
+	border: 2px solid black;
+	border-radius: 5px;
+	padding: 8px;
+	margin-bottom: 10px;
+	font-size: 32px;
+	color: white;
+	margin: 0 auto 5px auto;
+}
+
+.myButton:focus,
+.myButton:hover {
+	background-color: #DF807E;
+}
+
+.fakeButton {
+	text-align: center;
+	text-decoration: none;
+	display: block;
+}
+
+#container1 {
+    position: fixed;
+	display: flex;
+	margin-top: 50px;
+    top: 50px;
+    left: 50px;
+}
+
+#container2 {
+    position: fixed;
+    margin-bottom: 50px;
+	display: flex;
+	bottom: 50px;
+    right: 50px;
+}
+
+#result1 {
+	border: 4px solid black;
+	margin: 5px;
+	padding: 20px;
+	width: 300px;
+}
+
+#result2 {
+	border: 4px solid black;
+	margin: 5px;
+	padding: 20px;
+	width: 300px;
+}

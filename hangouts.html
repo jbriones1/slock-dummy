@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lobby</title>
+
+    <!----------------------------------------->
+    <!-- CSS: Bootstrap, Firebase, other API -->
+    <!----------------------------------------->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Custom CSS Files -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../images/apple-touch-icon.png">
+    <link rel="stylesheet" href="./hangouts.css">
+    <script type="text/javascript" async src="https://platform.twitter.com/widgets.js"></script>
+</head>
+
+<body>
+    <!-- Navigation bar -->
+    <div id="header-bar">
+        <div id='social'>
+            <iframe id="fb-btn"
+                src="https://www.facebook.com/plugins/share_button.php?href=https%3A%2F%2Fbanterbar-4ff3d.web.app%2F&layout=button&size=small&width=67&height=20&appId"
+                width="67" height="20" scrolling="no" frameborder="0" allowTransparency="true"
+                allow="encrypted-media"></iframe>
+            <a class="twitter-share-button"
+                href="https://twitter.com/intent/tweet?text=Check%20out%20the%20Banter%20Bar!">
+                Tweet
+            </a>
+        </div>
+    </div>
+
+    <!-- Content under nav bar -->
+    <section id="container">
+        <!-- Main content -->
+        <section id="content">
+            <section id="rooms-list">
+                <h2>rooms</h2>
+            </section>
+        </section>
+    </section>
+    <script src="./hangouts.js"></script>
+    <script src="./hangoutInteractions.js"></script>
+</body>
+
+</html>

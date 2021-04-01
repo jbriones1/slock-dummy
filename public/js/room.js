@@ -1,4 +1,6 @@
-console.log(window.location.pathname[window.location.pathname.length - 1]);
+// Set the name of the room
+document.getElementById('roomId').innerText = window.location.pathname[window.location.pathname.length - 1];
+
 
 const buttonClick1 = e => {
 	document.getElementById("result1").innerHTML =

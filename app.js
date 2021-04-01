@@ -1,15 +1,32 @@
 const express = require('express');
 const app = express();
-// const PORT = process.env.PORT || 5000
-const PORT = 8000
+const path = require('path');
+const PORT = process.env.PORT || 8000;
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
+const publicpath = path.join(__dirname, 'public');
 
-app.use(express.json())
-
-app.get('/', (req, res) => { 
-    res.end(); 
+app.get('/', (req, res) => {
+  res.redirect('/lobby');
 });
 
+
+app.get('/lobby', (req, res) => {
+  res.sendFile(publicpath + '/html/lobby.html');
+});
+
+app.get('/room/', (req, res) => {
+  res.redirect('/lobby');
+});
+
+app.get('/room/:roomId', (req, res) => {
+  console.log(req.params.roomId);
+
+  if (!req.params.roomId) {
+    res.redirect('/lobby');
+  } else {
+    res.sendFile(publicpath + '/html/room.html');
+  }
+});
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));

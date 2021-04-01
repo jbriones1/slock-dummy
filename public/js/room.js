@@ -1,4 +1,4 @@
-const socket = new Socket('wss://jondreb-multi-chat.herokuapp.com/socket', {params: {token: "token", vsn: "2.0.0"}});
+const socket = new Socket('ws://localhost:4000/socket', {params: {token: "token", vsn: "2.0.0"}});
 socket.connect();
 console.log(socket);
 

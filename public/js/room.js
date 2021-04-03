@@ -3,7 +3,7 @@ socket.connect();
 console.log(socket);
 const roomId = window.location.pathname[window.location.pathname.length - 1];
 
-let channel = socket.channel(`chat:client${roomId}`, {});
+let channel = socket.channel(`chat:room${roomId}`, {});
 channel.join()
 .receive('ok', resp => console.log('ok'))
 .receive('err', resp => console.log('error'));

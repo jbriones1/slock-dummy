@@ -8,7 +8,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 const publicpath = path.join(__dirname, 'public');
 
 app.get('/lobby', (req, res) => {
-  res.sendFile(publicpath + '/html/lobby.html');
+  res.sendFile(publicpath + '/html/hangouts.html');
 });
 
 app.get('/room/', (req, res) => {
@@ -21,7 +21,7 @@ app.get('/room/:roomId', (req, res) => {
 
 // Redirect all invalid requests to lobby
 app.all('/*', (req, res) => {
-  res.sendFile(publicpath + '/html/lobby.html');
+  res.sendFile(publicpath + '/html/hangouts.html');
 });
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));

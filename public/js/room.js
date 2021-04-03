@@ -1,28 +1,39 @@
-const socket = new Socket('ws://localhost:4000/socket', {params: {vsn: "2.0.0"}});
+const socket = new Socket('ws://localhost:4000/socket', {
+  params: {
+    vsn: "2.0.0"
+  }
+});
 socket.connect();
-console.log(socket);
-const roomId = window.location.pathname[window.location.pathname.length - 1];
+const roomId = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
 
-let channel = socket.channel(`chat:room${roomId}`, {});
+let channel = socket.channel(`lobbies:${roomId}`, {});
 channel.join()
-.receive('ok', resp => console.log('ok'))
-.receive('err', resp => console.log('error'));
+  .receive('ok', resp => console.log(socket))
+  .receive('err', resp => console.log('error'));
+
+channel.on('command', payload => {
+  console.log(`${payload.name}: ${payload.command}`);
+}); 
 
 // Set the name of the room
 document.getElementById('roomId').innerText = roomId;
 
 const buttonClick1 = e => {
-	document.getElementById("result1").innerHTML =
-		e.target.innerText + " was clicked";
-  
-  channel.push('shout', {name: `Client ${roomId} - Player 1`, body: e.target.innerText});
+  document.getElementById("result1").innerHTML =
+    e.target.innerText + " was clicked";
+
+  channel.push('command', {
+    name: `Room ${roomId} - Player 1`,
+    command: e.target.innerText
+  });
 };
 
 const buttonClick2 = e => {
-	document.getElementById("result2").innerHTML =
-		e.target.innerText + " was clicked";
-  
-  channel.push('shout', {name: `Client ${roomId} - Player 2`, body: e.target.innerText});
+  document.getElementById("result2").innerHTML =
+    e.target.innerText + " was clicked";
+
+  channel.push('command', {
+    name: `Room ${roomId} - Player 2`,
+    command: e.target.innerText
+  });
 };
-
-

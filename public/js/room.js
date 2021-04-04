@@ -1,6 +1,5 @@
 import { socket } from './socketHandler.js';
 
-socket.connect();
 const roomId = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
 
 let channel = socket.channel(`lobbies:${roomId}`, {});

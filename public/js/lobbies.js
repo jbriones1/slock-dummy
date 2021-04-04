@@ -2,13 +2,13 @@ import { socket } from './socketHandler.js';
 
 socket.connect();
 
-let channel = socket.channel("lobbies:lobbies", {});
+let channel = socket.channel("lobbies:lobbies", {userID: uuidv4()});
 
 channel.join()
 .receive('ok', resp => {
   console.log(channel);
   channel.on('get_rooms', payload => buildLobbyList(payload.rooms));
-  $('#btn-create-room').click(() => createRoom())
+  $('#btn-create-room').click(() => createRoom());
 })
 .receive('error', resp => console.log('Error'));
 

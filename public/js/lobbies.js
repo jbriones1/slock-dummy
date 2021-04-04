@@ -1,21 +1,16 @@
 import { socket } from './socketHandler.js';
 
-// const socket = SocketHandler.makeSocket('ws://localhost:4000/socket', {});
 socket.connect();
 
 let channel = socket.channel("lobbies:lobbies", {});
 
 channel.join()
 .receive('ok', resp => {
-  console.log(socket);
+  console.log(channel);
   channel.on('get_rooms', payload => buildLobbyList(payload.rooms));
-  getRooms();
+  $('#btn-create-room').click(() => createRoom())
 })
 .receive('error', resp => console.log('Error'));
-
-const getRooms = () => {
-  channel.push('get_rooms', {});
-};
 
 function joinRoom(roomID) {
   window.location.href = '/room/' + roomID; 
@@ -34,6 +29,17 @@ const buildLobbyList = (rooms) => {
         '</div>' + 
       '</div>'
       );
-      $(`#${room}`).click(() => {joinRoom(room)});
+      $(`#${room}`).click(() => joinRoom(room));
   });
+};
+
+const createRoom = () => {
+  const roomID = $('#txt-room-name').val();
+
+  if (!roomID.trim()) {
+    return;
+  }
+
+  channel.push('create_room', {name: roomID});
+  $('#txt-room-name').val('')
 };

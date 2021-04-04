@@ -1,14 +1,11 @@
-const socket = new Socket('ws://localhost:4000/socket', {
-  params: {
-    vsn: "2.0.0"
-  }
-});
+import { socket } from './socketHandler.js';
+
 socket.connect();
 const roomId = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
 
 let channel = socket.channel(`lobbies:${roomId}`, {});
 channel.join()
-  .receive('ok', resp => console.log(socket))
+  .receive('ok', resp => console.log(channel))
   .receive('err', resp => console.log('error'));
 
 channel.on('command', payload => {

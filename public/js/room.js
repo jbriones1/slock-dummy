@@ -12,6 +12,17 @@ channel.join()
   // Set the name of the room
   document.getElementById('roomId').innerText = roomID;
 
+  // Attach all buttons
+  const p1Buttons = document.getElementsByClassName('p1');
+  const p2Buttons = document.getElementsByClassName('p2');
+
+  for (let i = 0; i < p1Buttons.length; i++) {
+    p1Buttons[i].addEventListener('click', event => buttonClick1(event));
+    p2Buttons[i].addEventListener('click', event => buttonClick2(event));
+  }
+
+  document.getElementById("btn-exit").addEventListener('click', e => exitButton(e))
+
   // Return the player to lobby
   channel.on('eject', payload => {
     console.log(payload);
@@ -25,7 +36,7 @@ channel.join()
   });
 
   channel.on('command', payload => {
-    console.log(`${payload.name}: ${payload.command}`);
+    console.log(payload);
   });
 })
 .receive('err', resp => console.log('error'));
@@ -35,14 +46,6 @@ lobby.join()
   
 });
 
-// Attach all buttons
-const p1Buttons = document.getElementsByClassName('p1');
-const p2Buttons = document.getElementsByClassName('p2');
-
-for (let i = 0; i < p1Buttons.length; i++) {
-  p1Buttons[i].addEventListener('click', event => buttonClick1(event));
-  p2Buttons[i].addEventListener('click', event => buttonClick2(event));
-}
 
 const buttonClick1 = e => {
   document.getElementById("result1").innerHTML =
@@ -62,4 +65,9 @@ const buttonClick2 = e => {
     name: `Room ${roomID} - Player 2`,
     command: e.target.innerText
   });
+};
+
+const exitButton = e => {
+  channel.leave().receive('ok', resp => console.log(channel));
+  window.location.href = '/';
 };

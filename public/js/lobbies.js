@@ -6,11 +6,15 @@ let channel = socket.channel("lobbies:lobbies", {});
 channel.join()
   .receive('ok', resp => {
     console.log(channel);
-    channel.on('get_rooms', payload => buildLobbyList(payload.rooms));
+    channel.on('get_rooms', payload => {
+      console.log("Get rooms")
+      buildLobbyList(payload.rooms)
+    });
     $('#btn-create-room').click(() => createRoom());
 
     channel.on('room_made', payload => {
       if (!payload.name) return;
+      channel.push('update_rooms', {});
       joinRoom(payload.name);
     });
 
@@ -23,7 +27,9 @@ const joinRoom = (roomID) => {
 
 const buildLobbyList = (rooms) => {
   console.log(rooms);
+
   $('#rooms-list').empty();
+  if (!rooms) return;
   Object.keys(rooms).forEach(room => {
     $('#rooms-list').append(
       '<div class="card" style="width: 18rem;">' +

@@ -4,32 +4,37 @@ const roomId = window.location.pathname.split('/')[window.location.pathname.spli
 const userID = uuidv4();
 
 let channel = socket.channel(`lobbies:${roomId}`, { userID });
+let lobby = socket.channel('lobbies:lobbies', {});
+
 channel.join()
-  .receive('ok', resp => {
-    console.log(channel);
-    // Set the name of the room
-    document.getElementById('roomId').innerText = roomId;
+.receive('ok', resp => {
+  console.log(channel);
+  // Set the name of the room
+  document.getElementById('roomId').innerText = roomId;
 
-    // Return the player to lobby
-    channel.on('eject', payload => {
-      console.log(payload);
-      window.location.href = '/';
-    });
+  // Return the player to lobby
+  channel.on('eject', payload => {
+    console.log(payload);
+    window.location.href = '/';
+  });
 
-    channel.on('message', payload => {
-      console.log(payload.message);
-    });
-  })
-  .receive('err', resp => console.log('error'));
+  channel.on('message', payload => {
+    console.log(payload.message);
+  });
 
-channel.on('command', payload => {
-  console.log(`${payload.name}: ${payload.command}`);
-});
+  channel.on('command', payload => {
+    console.log(`${payload.name}: ${payload.command}`);
+  });
+})
+.receive('err', resp => console.log('error'));
+
+lobby.join()
+.receive('ok', resp => console.log(socket));
 
 // Attach all buttons
 const p1Buttons = document.getElementsByClassName('p1');
 const p2Buttons = document.getElementsByClassName('p2');
-console.log(p1Buttons);
+
 for (let i = 0; i < p1Buttons.length; i++) {
   p1Buttons[i].addEventListener('click', event => buttonClick1(event));
   p2Buttons[i].addEventListener('click', event => buttonClick2(event));

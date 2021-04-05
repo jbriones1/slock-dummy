@@ -29,7 +29,9 @@ channel.join()
 .receive('err', resp => console.log('error'));
 
 lobby.join()
-.receive('ok', resp => console.log(socket));
+.receive('ok', resp => {
+  
+});
 
 // Attach all buttons
 const p1Buttons = document.getElementsByClassName('p1');

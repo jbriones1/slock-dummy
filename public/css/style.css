@@ -11,6 +11,10 @@ p {
 	margin: 10px 10px 10px 30px;
 }
 
+#btn-exit {
+  float: right;
+}
+
 .myButton {
 	width: 150px;
 	background-color: #55A3AB;

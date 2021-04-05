@@ -5,24 +5,35 @@ const userID = uuidv4();
 
 let channel = socket.channel(`lobbies:${roomId}`, { userID });
 channel.join()
-  .receive('ok', resp => console.log(channel))
+  .receive('ok', resp => {
+    console.log(channel);
+    // Set the name of the room
+    document.getElementById('roomId').innerText = roomId;
+
+    // Return the player to lobby
+    channel.on('eject', payload => {
+      console.log(payload);
+      window.location.href = '/';
+    });
+
+    channel.on('message', payload => {
+      console.log(payload.message);
+    });
+  })
   .receive('err', resp => console.log('error'));
 
-  channel.on('command', payload => {
+channel.on('command', payload => {
   console.log(`${payload.name}: ${payload.command}`);
-}); 
+});
 
-  // Attach all buttons
+// Attach all buttons
 const p1Buttons = document.getElementsByClassName('p1');
 const p2Buttons = document.getElementsByClassName('p2');
 console.log(p1Buttons);
 for (let i = 0; i < p1Buttons.length; i++) {
   p1Buttons[i].addEventListener('click', event => buttonClick1(event));
-  p2Buttons[i].addEventListener('click', event => buttonClick1(event));
+  p2Buttons[i].addEventListener('click', event => buttonClick2(event));
 }
-
-// Set the name of the room
-document.getElementById('roomId').innerText = roomId;
 
 const buttonClick1 = e => {
   document.getElementById("result1").innerHTML =

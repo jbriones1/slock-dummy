@@ -1,16 +1,16 @@
 import { socket } from './socketHandler.js';
 
-const roomId = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
+const roomID = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
 const userID = uuidv4();
 
-let channel = socket.channel(`lobbies:${roomId}`, { userID });
+let channel = socket.channel(`lobbies:${roomID}`, { userID });
 let lobby = socket.channel('lobbies:lobbies', {});
 
 channel.join()
 .receive('ok', resp => {
   console.log(channel);
   // Set the name of the room
-  document.getElementById('roomId').innerText = roomId;
+  document.getElementById('roomId').innerText = roomID;
 
   // Return the player to lobby
   channel.on('eject', payload => {
@@ -18,8 +18,10 @@ channel.join()
     window.location.href = '/';
   });
 
-  channel.on('message', payload => {
-    console.log(payload.message);
+  channel.on('room_state', payload => {
+    if (payload.room.p2) {
+      lobby.push('full_room', {room_name: roomID});
+    }
   });
 
   channel.on('command', payload => {
@@ -47,7 +49,7 @@ const buttonClick1 = e => {
     e.target.innerText + " was clicked";
 
   channel.push('command', {
-    name: `Room ${roomId} - Player 1`,
+    name: `Room ${roomID} - Player 1`,
     command: e.target.innerText
   });
 };
@@ -57,7 +59,7 @@ const buttonClick2 = e => {
     e.target.innerText + " was clicked";
 
   channel.push('command', {
-    name: `Room ${roomId} - Player 2`,
+    name: `Room ${roomID} - Player 2`,
     command: e.target.innerText
   });
 };

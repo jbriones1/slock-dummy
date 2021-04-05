@@ -1,8 +1,7 @@
 import { socket } from './socketHandler.js';
 
 socket.connect();
-const userID = uuidv4();
-let channel = socket.channel("lobbies:lobbies", { userID });
+let channel = socket.channel("lobbies:lobbies", {});
 
 channel.join()
 .receive('ok', resp => {

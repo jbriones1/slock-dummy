@@ -10,50 +10,54 @@
 
 <body>
   <h2>Client Room <span id="roomId"></span></h2>
-  <a href="/" class='myButton fakeButton'>
-    Exit
-  </a>
-  <div>
-    <div id="container1">
-      <div>
-        <div id='buttonContainer'>
-          <p>player1</p>
-          <a href='javascript:void(0)' onclick=buttonClick1(event) class='myButton fakeButton'>
-            Punch
-          </a>
-          <a href='javascript:void(0)' onclick=buttonClick1(event) class='myButton fakeButton'>
-            Defend
-          </a>
-          <a href='javascript:void(0)' onclick=buttonClick1(event) class='myButton fakeButton'>
-            Magic
-          </a>
-          <a href='javascript:void(0)' onclick=buttonClick1(event) class='myButton fakeButton'>
-            Gun
-          </a>
-        </div>
-      </div>
-      <div id='result1'></div>
-    </div>
+  <div id="btn-exit">
+    <a href="/" class='myButton fakeButton'>
+      Exit
+    </a>
   </div>
-
   <div>
-    <div id="container2">
-      <div id='result2'></div>
-      <div>
-        <p>Player 2</p>
-        <div id='buttonContainer'>
-          <a href='javascript:void(0)' onclick=buttonClick2(event) class='myButton fakeButton'>
-            Punch
-          </a>
-          <a href='javascript:void(0)' onclick=buttonClick2(event) class='myButton fakeButton'>
-            Defend
-          </a>
-          <a href='javascript:void(0)' onclick=buttonClick2(event) class='myButton fakeButton'>
-            Magic
-          </a>
-          <a href='javascript:void(0)' onclick=buttonClick2(event) class='myButton fakeButton'>
-            Gun
-          </a>
+    <div>
+      <div id="container1">
+        <div>
+          <div id='buttonContainer'>
+            <p>player1</p>
+            <a href='javascript:void(0)' class='myButton fakeButton p1'>
+              Punch
+            </a>
+            <a href='javascript:void(0)' class='myButton fakeButton p1'>
+              Defend
+            </a>
+            <a href='javascript:void(0)' class='myButton fakeButton p1'>
+              Magic
+            </a>
+            <a href='javascript:void(0)' class='myButton fakeButton p1'>
+              Gun
+            </a>
+          </div>
+        </div>
+        <div id='result1'></div>
+      </div>
+    </div>
+
+    <div>
+      <div id="container2">
+        <div id='result2'></div>
+        <div>
+          <p>Player 2</p>
+          <div id='buttonContainer'>
+            <a href='javascript:void(0)' class='myButton fakeButton p2'>
+              Punch
+            </a>
+            <a href='javascript:void(0)' class='myButton fakeButton p2'>
+              Defend
+            </a>
+            <a href='javascript:void(0)' class='myButton fakeButton p2'>
+              Magic
+            </a>
+            <a href='javascript:void(0)' class='myButton fakeButton p2'>
+              Gun
+            </a>
+          </div>
         </div>
       </div>
     </div>

@@ -3,12 +3,17 @@ import { socket } from './socketHandler.js';
 const roomID = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
 const userID = uuidv4();
 
-let channel = socket.channel(`lobbies:${roomID}`, { userID });
+let room = socket.channel(`lobbies:${roomID}`, { userID: userID });
 let lobby = socket.channel('lobbies:lobbies', {});
 
-channel.join()
+lobby.join()
 .receive('ok', resp => {
-  console.log(channel);
+  
+});
+
+room.join()
+.receive('ok', resp => {
+
   // Set the name of the room
   document.getElementById('roomId').innerText = roomID;
 
@@ -24,34 +29,35 @@ channel.join()
   document.getElementById("btn-exit").addEventListener('click', e => exitButton(e))
 
   // Return the player to lobby
-  channel.on('eject', payload => {
+  room.on('eject', payload => {
     console.log(payload);
     window.location.href = '/';
   });
 
-  channel.on('room_state', payload => {
-    if (payload.room.p2) {
-      lobby.push('full_room', {room_name: roomID});
+  room.on('room_state', payload => {
+    console.log(payload)
+    if (payload.room.p1 && payload.room.p2) {
+      lobby.push('full_room', {});
     }
   });
 
-  channel.on('command', payload => {
+  room.on('player_left', payload => {
+    console.log(`Player ${payload.userID} left.`)
+    console.log(payload.room);
+    lobby.push('update_rooms', {});
+  });
+
+  room.on('command', payload => {
     console.log(payload);
   });
 })
 .receive('err', resp => console.log('error'));
 
-lobby.join()
-.receive('ok', resp => {
-  
-});
-
-
 const buttonClick1 = e => {
   document.getElementById("result1").innerHTML =
     e.target.innerText + " was clicked";
 
-  channel.push('command', {
+  room.push('command', {
     name: `Room ${roomID} - Player 1`,
     command: e.target.innerText
   });
@@ -61,13 +67,14 @@ const buttonClick2 = e => {
   document.getElementById("result2").innerHTML =
     e.target.innerText + " was clicked";
 
-  channel.push('command', {
+  room.push('command', {
     name: `Room ${roomID} - Player 2`,
     command: e.target.innerText
   });
 };
 
 const exitButton = e => {
-  channel.leave().receive('ok', resp => console.log(channel));
+
+  room.push('leave_room', {userID, roomID});
   window.location.href = '/';
 };

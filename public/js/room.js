@@ -6,10 +6,7 @@ const userID = uuidv4();
 let room = socket.channel(`lobbies:${roomID}`, { userID: userID });
 let lobby = socket.channel('lobbies:lobbies', {});
 
-lobby.join()
-.receive('ok', resp => {
-  
-});
+lobby.join();
 
 room.join()
 .receive('ok', resp => {
@@ -28,15 +25,16 @@ room.join()
 
   document.getElementById("btn-exit").addEventListener('click', e => exitButton(e))
 
+  lobby.push('update_rooms', {});
+  
   // Return the player to lobby
   room.on('eject', payload => {
-    console.log(payload);
     window.location.href = '/';
   });
 
   room.on('room_state', payload => {
-    console.log(payload)
-    if (payload.room.p1 && payload.room.p2) {
+
+    if (payload.players.p1 && payload.players.p2) {
       lobby.push('full_room', {});
     }
   });

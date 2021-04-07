@@ -17,7 +17,6 @@ channel.join()
 
     channel.on('room_made', payload => {
       if (!payload.name) return;
-      channel.push('update_rooms', {});
       joinRoom(payload.name);
     });
 
@@ -65,7 +64,7 @@ const createRoom = () => {
   }
 
   channel.push('create_room', {
-    name: roomID
+    room_name: roomID
   });
   $('#txt-room-name').val('')
 };

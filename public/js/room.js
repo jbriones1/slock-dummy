@@ -14,15 +14,6 @@ room.join()
   // Set the name of the room
   document.getElementById('roomId').innerText = roomID;
 
-  // Attach all buttons
-  const p1Buttons = document.getElementsByClassName('p1');
-  const p2Buttons = document.getElementsByClassName('p2');
-
-  for (let i = 0; i < p1Buttons.length; i++) {
-    p1Buttons[i].addEventListener('click', event => buttonClick1(event));
-    p2Buttons[i].addEventListener('click', event => buttonClick2(event));
-  }
-
   document.getElementById("btn-exit").addEventListener('click', e => exitButton(e))
 
   lobby.push('update_rooms', {});
@@ -37,6 +28,7 @@ room.join()
     if (payload.players.p1 && payload.players.p2) {
       lobby.push('full_room', {});
     }
+    setPlayerButtons(payload);
   });
 
   room.on('player_left', payload => {
@@ -79,3 +71,24 @@ const exitButton = e => {
   room.push('leave_room', {userID, roomID});
   window.location.href = '/';
 };
+
+const setPlayerButtons = (payload) => {
+
+  if (payload.players.p1 == userID) {
+    const p1Buttons = document.getElementsByClassName('p1');
+
+    console.log("attaching to p1")
+
+    for (let i = 0; i < p1Buttons.length; i++) {
+      p1Buttons[i].addEventListener('click', event => buttonClick1(event));
+    }
+  } else {
+    const p2Buttons = document.getElementsByClassName('p2');
+
+    console.log("attaching to p2")
+
+    for (let i = 0; i < p2Buttons.length; i++) {
+      p2Buttons[i].addEventListener('click', event => buttonClick2(event));
+    }
+  }
+}

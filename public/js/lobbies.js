@@ -21,7 +21,7 @@ channel.join()
     });
 
     channel.on('join_room', payload => {
-      console.log(payload.joinable);
+
       if (payload.joinable) {
         window.location.href = 'room/' + payload.roomID;
       }

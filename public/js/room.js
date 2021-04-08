@@ -47,6 +47,9 @@ room.join()
 
   room.on('command', payload => {
     console.log(payload);
+
+    document.getElementById('p1-hp').innerText = payload.p1;
+    document.getElementById('p2-hp').innerText = payload.p2;
   });
 })
 .receive('err', resp => console.log('error'));

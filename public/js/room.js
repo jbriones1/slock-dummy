@@ -51,8 +51,9 @@ const buttonClick1 = e => {
     e.target.innerText + " was clicked";
 
   room.push('command', {
-    name: `Room ${roomID} - Player 1`,
-    command: e.target.innerText
+    room: `${roomID}`,
+    command: e.target.innerText,
+    player: 1
   });
 };
 
@@ -61,8 +62,9 @@ const buttonClick2 = e => {
     e.target.innerText + " was clicked";
 
   room.push('command', {
-    name: `Room ${roomID} - Player 2`,
-    command: e.target.innerText
+    room: `${roomID}`,
+    command: e.target.innerText,
+    player: 2
   });
 };
 

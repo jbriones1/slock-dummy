@@ -51,7 +51,7 @@ const buildLobbyList = (rooms) => {
         '</div>'
         );
       }
-    $(`#${room}`).click(() => joinRoom(room));
+    $(`#${room}`).click(() => joinRoom(room)); // joining a room
   });
 };
 

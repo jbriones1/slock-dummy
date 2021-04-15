@@ -31,6 +31,7 @@ room
       if (payload.players.p1 && payload.players.p2) {
         lobby.push('full_room', {});
       }
+      console.log("room_state called");
       setPlayerButtons(payload);
     });
 
@@ -42,7 +43,11 @@ room
 
     room.on('command', (payload) => {
       console.log(payload);
-
+      if (payload.game_state) {
+        room.push('leave_room', { userID, roomID });
+        window.location.href = '/';
+        return;
+      }
       document.getElementById('p1-hp').innerText = payload.p1;
       document.getElementById('p2-hp').innerText = payload.p2;
     });

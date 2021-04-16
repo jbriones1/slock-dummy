@@ -100,21 +100,25 @@ const exitButton = (e) => {
 };
 
 const setPlayerButtons = (payload) => {
+  const p1Buttons = document.getElementsByClassName('p1');
+  const p2Buttons = document.getElementsByClassName('p2');
+
   if (payload.players.p1 == userID) {
-    const p1Buttons = document.getElementsByClassName('p1');
 
     console.log('attaching to p1');
 
     for (let i = 0; i < p1Buttons.length; i++) {
       p1Buttons[i].addEventListener('click', (event) => buttonClick1(event));
+      p2Buttons[p2Buttons.length - 1].remove();
     }
   } else {
-    const p2Buttons = document.getElementsByClassName('p2');
+
 
     console.log('attaching to p2');
 
     for (let i = 0; i < p2Buttons.length; i++) {
       p2Buttons[i].addEventListener('click', (event) => buttonClick2(event));
+      p1Buttons[p1Buttons.length - 1].remove();
     }
   }
 };

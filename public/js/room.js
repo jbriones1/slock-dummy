@@ -30,9 +30,9 @@ room
     room.on('room_state', (payload) => {
       if (payload.players.p1 && payload.players.p2) {
         lobby.push('full_room', {});
+        setPlayerButtons(payload);
       }
-      console.log("room_state called");
-      setPlayerButtons(payload);
+      console.log('room_state called');
     });
 
     room.on('player_left', (payload) => {
@@ -59,7 +59,7 @@ const buttonClick1 = (e) => {
     e.target.innerText + ' was clicked';
   console.log('Player 1 button clicked');
   room.push('command', {
-    room: `${roomID}`,
+    roomID: `${roomID}`,
     command: e.target.innerText,
     player: 1,
   });
@@ -71,7 +71,7 @@ const buttonClick2 = (e) => {
 
   console.log('Player 2 button clicked');
   room.push('command', {
-    room: `${roomID}`,
+    roomID: `${roomID}`,
     command: e.target.innerText,
     player: 2,
   });
